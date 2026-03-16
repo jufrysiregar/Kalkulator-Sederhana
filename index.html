@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Jufry Siregar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="calculator">
+    <div class="header-area">
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('calc')">Kalkulator</div>
+            <div class="tab" onclick="switchTab('conv')">Konverter</div>
+        </div>
+        <div class="menu-container">
+            <div class="menu-dots" id="menu-trigger">⋮</div>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <div onclick="showFullHistory()">Riwayat</div>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div id="calc-section">
+            <div id="view-standard">
+                <div class="display">
+                    <div class="expr" id="expr"></div>
+                    <div class="current" id="current">0</div>
+                    <div class="preview" id="preview"></div>
+                </div>
+                <div class="buttons">
+                    <button class="btn-eq" onclick="press('AC')">AC</button>
+                    <button class="btn-op btn-func-op" onclick="press('⌫')">⌫</button>
+                    <button class="btn-op btn-func-op" onclick="press('%')">%</button>
+                    <button class="btn-op"   onclick="press('/')">÷</button>
+                    <button class="btn-num" onclick="press('7')">7</button>
+                    <button class="btn-num" onclick="press('8')">8</button>
+                    <button class="btn-num" onclick="press('9')">9</button>
+                    <button class="btn-op"  onclick="press('*')">×</button>
+                    <button class="btn-num" onclick="press('4')">4</button>
+                    <button class="btn-num" onclick="press('5')">5</button>
+                    <button class="btn-num" onclick="press('6')">6</button>
+                    <button class="btn-op"  onclick="press('-')">−</button>
+                    <button class="btn-num" onclick="press('1')">1</button>
+                    <button class="btn-num" onclick="press('2')">2</button>
+                    <button class="btn-num" onclick="press('3')">3</button>
+                    <button class="btn-op"  onclick="press('+')">+</button>
+                    <button class="btn-func btn-scimode" onclick="toggleSciMode()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 2v6h-6"/>
+                            <path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
+                            <path d="M3 22v-6h6"/>
+                            <path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+                        </svg>
+                    </button>
+                    <button class="btn-num" onclick="press('0')">0</button>
+                    <button class="btn-num" onclick="press('.')">，</button>
+                    <button class="btn-eq"  onclick="press('=')">＝</button>
+                </div>
+            </div>
+            <div id="view-scientific" style="display:none;">
+                <div class="display display-sci">
+                    <div class="expr" id="expr-sci"></div>
+                    <div class="current" id="current-sci">0</div>
+                    <div class="preview" id="preview-sci"></div>
+                </div>
+                <div class="buttons-sci">
+                    <button class="btn-sci" id="btn-2nd" onclick="toggle2nd()">2nd</button>
+                    <button class="btn-sci btn-sci-active" id="btn-deg" onclick="toggleDeg()">deg</button>
+                    <button class="btn-sci" id="btn-sin" onclick="pressSci('sin(')">sin</button>
+                    <button class="btn-sci" id="btn-cos" onclick="pressSci('cos(')">cos</button>
+                    <button class="btn-sci" id="btn-tan" onclick="pressSci('tan(')">tan</button>
+                    <button class="btn-sci" onclick="pressSci('^')">x<sup>y</sup></button>
+                    <button class="btn-sci" onclick="pressSci('lg(')">lg</button>
+                    <button class="btn-sci" onclick="pressSci('ln(')">ln</button>
+                    <button class="btn-sci" onclick="pressSci('(')">(</button>
+                    <button class="btn-sci" onclick="pressSci(')')">)</button>
+                    <button class="btn-sci" onclick="pressSci('√(')">√x</button>
+                    <button class="btn-sci btn-sci-eq" onclick="press('AC')">AC</button>
+                    <button class="btn-sci btn-sci-func" onclick="press('⌫')">⌫</button>
+                    <button class="btn-sci btn-sci-func" onclick="press('%')">%</button>
+                    <button class="btn-sci btn-sci-op"   onclick="press('/')">÷</button>
+                    <button class="btn-sci" onclick="pressSci('fact(')">x!</button>
+                    <button class="btn-sci btn-sci-num" onclick="press('7')">7</button>
+                    <button class="btn-sci btn-sci-num" onclick="press('8')">8</button>
+                    <button class="btn-sci btn-sci-num" onclick="press('9')">9</button>
+                    <button class="btn-sci btn-sci-op"  onclick="press('*')">×</button>
+                    <button class="btn-sci" onclick="pressSci('1/(')">¹/x</button>
+                    <button class="btn-sci btn-sci-num" onclick="press('4')">4</button>
+                    <button class="btn-sci btn-sci-num" onclick="press('5')">5</button>
+                    <button class="btn-sci btn-sci-num" onclick="press('6')">6</button>
+                    <button class="btn-sci btn-sci-op"  onclick="press('-')">−</button>
+                    <button class="btn-sci" onclick="pressSci('π')">π</button>
+                    <button class="btn-sci btn-sci-num" onclick="press('1')">1</button>
+                    <button class="btn-sci btn-sci-num" onclick="press('2')">2</button>
+                    <button class="btn-sci btn-sci-num" onclick="press('3')">3</button>
+                    <button class="btn-sci btn-sci-op"  onclick="press('+')">+</button>
+                    <button class="btn-sci btn-scimode" onclick="toggleSciMode()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 2v6h-6"/>
+                            <path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
+                            <path d="M3 22v-6h6"/>
+                            <path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+                        </svg>
+                    </button>
+                    <button class="btn-sci" onclick="pressSci('e')">e</button>
+                    <button class="btn-sci btn-sci-num" onclick="press('0')">0</button>
+                    <button class="btn-sci btn-sci-num" onclick="press('.')">，</button>
+                    <button class="btn-sci btn-sci-eq"  onclick="press('=')">＝</button>
+                </div>
+            </div>
+        </div>
+        <div id="conv-section" style="display: none;">
+            <div class="conv-display">
+                <div class="conv-grid">
+                    <div class="conv-item" onclick="openConv('matauang')"><div class="conv-icon">💱</div><span>Mata uang</span></div>
+                    <div class="conv-item" onclick="openConv('panjang')"><div class="conv-icon">📏</div><span>Panjang</span></div>
+                    <div class="conv-item" onclick="openConv('massa')"><div class="conv-icon">⚖️</div><span>Massa</span></div>
+                    <div class="conv-item" onclick="openConv('area')"><div class="conv-icon">📐</div><span>Area</span></div>
+                    <div class="conv-item" onclick="openConv('waktu')"><div class="conv-icon">🕐</div><span>Waktu</span></div>
+                    <div class="conv-item" onclick="openConv('keuangan')"><div class="conv-icon">💵</div><span>Keuangan</span></div>
+                    <div class="conv-item" onclick="openConv('data')"><div class="conv-icon">💾</div><span>Data</span></div>
+                    <div class="conv-item" onclick="openConv('tanggal')"><div class="conv-icon">📅</div><span>Tanggal</span></div>
+                    <div class="conv-item" onclick="openConv('diskon')"><div class="conv-icon">🏷️</div><span>Diskon</span></div>
+                    <div class="conv-item" onclick="openConv('volume')"><div class="conv-icon">📦</div><span>Volume</span></div>
+                    <div class="conv-item" onclick="openConv('sistemangka')"><div class="conv-icon">🔢</div><span>Sistem angka</span></div>
+                    <div class="conv-item" onclick="openConv('kecepatan')"><div class="conv-icon">⚡</div><span>Kecepatan</span></div>
+                    <div class="conv-item" onclick="openConv('suhu')"><div class="conv-icon">🌡️</div><span>Suhu</span></div>
+                    <div class="conv-item" onclick="openConv('imt')"><div class="conv-icon">🏋️</div><span>IMT</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="conv-overlay" id="conv-overlay">
+            <div class="conv-modal">
+                <div class="conv-modal-header">
+                    <span class="conv-modal-title" id="conv-modal-title"></span>
+                    <span class="close-btn" onclick="closeConv()">✕</span>
+                </div>
+                <div class="conv-modal-body" id="conv-modal-body"></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-wrapper">
+        <div class="footer-copyright">@ Jufry Siregar — 2026. All Rights Reserved.</div>
+        <div class="tips-row">
+            <button class="btn-tips-circle" onclick="showTips()">💡</button>
+            <span class="tips-text-anim">ayo coba klik ini</span>
+        </div>
+    </div>
+    <div class="history-overlay" id="history-overlay">
+        <div class="history-modal">
+            <div class="history-header">
+                <h3>Riwayat Perhitungan</h3>
+                <span class="close-btn" onclick="hideFullHistory()">✕</span>
+            </div>
+            <div class="history-content" id="history-content"></div>
+            <div class="history-footer">
+                <button class="btn-clear-history" onclick="clearAllHistory()">Hapus Riwayat</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tips-popup" class="tips-overlay" onclick="hideTips()">
+    <div class="tips-box"></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
